@@ -47,10 +47,10 @@ resource "aws_vpc" "main" {
 # map_public_ip_on_launch = true → every EC2 launched here automatically
 # gets a public IP address. This is how web01 becomes reachable from outside.
 resource "aws_subnet" "public" {
-  vpc_id                  = aws_vpc.main.id   # Belongs to our VPC
+  vpc_id                  = aws_vpc.main.id # Belongs to our VPC
   cidr_block              = var.public_subnet_cidr
   availability_zone       = var.availability_zone_public
-  map_public_ip_on_launch = true              # web01 gets a public IP automatically
+  map_public_ip_on_launch = true # web01 gets a public IP automatically
 
   tags = {
     Name = "${var.project_name}-public-subnet"
@@ -123,7 +123,7 @@ resource "aws_route_table" "public" {
 
   route {
     cidr_block = "0.0.0.0/0"                  # All internet-bound traffic
-    gateway_id = aws_internet_gateway.main.id  # Goes through the front door
+    gateway_id = aws_internet_gateway.main.id # Goes through the front door
   }
 
   tags = {
@@ -158,7 +158,7 @@ resource "aws_route_table_association" "public" {
 
 resource "aws_route_table_association" "public_2" {
   subnet_id      = aws_subnet.public_2.id
-  route_table_id = aws_route_table.public.id  # Same public route table
+  route_table_id = aws_route_table.public.id # Same public route table
 }
 
 resource "aws_route_table_association" "private" {
