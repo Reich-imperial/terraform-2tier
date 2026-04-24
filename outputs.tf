@@ -13,6 +13,7 @@
 #      read these outputs to chain infrastructure together
 #
 # You'll see these at the very end of every `terraform apply` run.
+# Testing outputs is a great way to verify your infrastructure works as expected.
 # =============================================================================
 
 output "alb_dns_name" {
@@ -51,3 +52,4 @@ output "ssh_to_db01_via_web01" {
   description = "Run this FROM web01 to reach db01 in the private subnet"
   value       = "ssh -i ~/.ssh/samson-key.pem ec2-user@${aws_instance.db01.private_ip}"
 }
+# pipeline test
