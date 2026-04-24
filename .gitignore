@@ -1,0 +1,25 @@
+# Terraform state — stored in S3, never in git
+*.tfstate
+*.tfstate.*
+*.tfstate.backup
+
+# Provider binaries downloaded by terraform init — large, machine-generated
+.terraform/
+.terraform.lock.hcl
+
+# Your personal values file — treat like a .env file, never commit
+terraform.tfvars
+*.auto.tfvars
+
+# Plan files can contain sensitive data
+*.tfplan
+tfplan
+
+# Key files
+*.pem
+*.key
+
+# OS and editor noise
+.DS_Store
+.idea/
+*.swp
