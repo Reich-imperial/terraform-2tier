@@ -56,7 +56,7 @@ resource "aws_security_group" "alb" {
     description = "Allow all outbound so ALB can forward to targets"
     from_port   = 0
     to_port     = 0
-    protocol    = "-1"           # -1 means ALL protocols
+    protocol    = "-1" # -1 means ALL protocols
     cidr_blocks = ["0.0.0.0/0"]
   }
 

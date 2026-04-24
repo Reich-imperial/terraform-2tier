@@ -25,16 +25,16 @@
 # web01 — Nginx Web Server
 # -----------------------------------------------------------------------------
 resource "aws_instance" "web01" {
-  ami           = data.aws_ami.amazon_linux_2.id  # Dynamic AMI from vpc.tf
+  ami           = data.aws_ami.amazon_linux_2.id # Dynamic AMI from vpc.tf
   instance_type = var.instance_type
-  subnet_id     = aws_subnet.public.id            # Public subnet → gets public IP
+  subnet_id     = aws_subnet.public.id # Public subnet → gets public IP
 
   # Associates the web security group with this instance.
   # This is how the SG-to-SG rules in sg.tf become real:
   # the ALB SG can send HTTP here; the DB SG accepts MySQL from here.
   vpc_security_group_ids = [aws_security_group.web.id]
 
-  key_name = var.key_pair_name  # Your existing samson-key
+  key_name = var.key_pair_name # Your existing samson-key
 
   # THE BOOTSTRAP SCRIPT
   # <<-EOF ... EOF is Terraform's heredoc syntax for multi-line strings.
@@ -84,7 +84,7 @@ resource "aws_instance" "web01" {
 resource "aws_instance" "db01" {
   ami           = data.aws_ami.amazon_linux_2.id
   instance_type = var.instance_type
-  subnet_id     = aws_subnet.private.id           # Private subnet → NO public IP
+  subnet_id     = aws_subnet.private.id # Private subnet → NO public IP
 
   # Only the db security group — which accepts MySQL from web01's SG only.
   vpc_security_group_ids = [aws_security_group.db.id]

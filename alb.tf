@@ -31,8 +31,8 @@
 # -----------------------------------------------------------------------------
 resource "aws_lb" "main" {
   name               = "${var.project_name}-alb"
-  internal           = false           # false = internet-facing (public)
-  load_balancer_type = "application"   # ALB = HTTP/HTTPS aware (vs NLB = raw TCP)
+  internal           = false         # false = internet-facing (public)
+  load_balancer_type = "application" # ALB = HTTP/HTTPS aware (vs NLB = raw TCP)
   security_groups    = [aws_security_group.alb.id]
 
   # AWS requires an ALB to span at least two Availability Zones for redundancy.
@@ -67,14 +67,14 @@ resource "aws_lb_target_group" "web" {
 
   health_check {
     enabled             = true
-    path                = "/"           # The URL the ALB requests to check health
+    path                = "/" # The URL the ALB requests to check health
     port                = "traffic-port"
     protocol            = "HTTP"
-    healthy_threshold   = 2             # 2 passing checks → healthy
-    unhealthy_threshold = 3             # 3 failing checks → unhealthy
-    timeout             = 5             # Wait 5 seconds for a response
-    interval            = 30            # Check every 30 seconds
-    matcher             = "200"         # HTTP 200 = server is healthy
+    healthy_threshold   = 2     # 2 passing checks → healthy
+    unhealthy_threshold = 3     # 3 failing checks → unhealthy
+    timeout             = 5     # Wait 5 seconds for a response
+    interval            = 30    # Check every 30 seconds
+    matcher             = "200" # HTTP 200 = server is healthy
   }
 
   tags = {
@@ -91,7 +91,7 @@ resource "aws_lb_target_group" "web" {
 # In production you'd add more rules: redirect HTTP to HTTPS, route /api to a
 # different target group, etc. For now: simple forward.
 resource "aws_lb_listener" "http" {
-  load_balancer_arn = aws_lb.main.arn   # Attach this listener to our ALB
+  load_balancer_arn = aws_lb.main.arn # Attach this listener to our ALB
   port              = "80"
   protocol          = "HTTP"
 
