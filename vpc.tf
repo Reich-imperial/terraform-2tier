@@ -1,31 +1,5 @@
 # =============================================================================
 # vpc.tf — The Network Layer
-# =============================================================================
-# This file builds everything related to networking. Resources are created
-# in dependency order — but you don't have to manage that manually.
-#
-# Terraform reads ALL .tf files, builds a dependency graph, and creates
-# resources in the correct order automatically. How does it know the order?
-# By reference: if resource B mentions aws_vpc.main.id, Terraform knows
-# the VPC must exist before B can be created.
-#
-# BUILD ORDER Terraform will figure out:
-#   VPC → Subnets → Internet Gateway → Route Tables → Associations
-# =============================================================================
-
-
-# -----------------------------------------------------------------------------
-# DATA SOURCE: Latest Amazon Linux 2 AMI
-# -----------------------------------------------------------------------------
-# A "data source" is a read-only lookup — it doesn't create anything.
-# It asks AWS: "what is the current ID of the latest Amazon Linux 2 AMI?"
-#
-# Why not hardcode the AMI ID?
-# AMI IDs change per region and get deprecated over time. If you hardcode
-# "ami-0abcdef1234567890" it will eventually stop working. This lookup
-# always returns whatever is current.
-#
-# You reference this later in ec2.tf as: data.aws_ami.amazon_linux_2.id
 data "aws_ami" "amazon_linux_2" {
   most_recent = true
   owners      = ["amazon"]
